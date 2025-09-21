@@ -22,7 +22,9 @@ function LoginForm() {
     const fakeUser = {
       id: "dev123",
       email: "dev@test.com",
-      name: "Dev User",
+      user_metadata: {
+        fullName: "Dev User",
+      },
     };
 
     queryClient.setQueryData(["user"], fakeUser);
