@@ -5,39 +5,29 @@ import Input from "../../ui/Input";
 import FormRowVertical from "../../ui/FormRowVertical";
 import { useLogin } from "./useLogin";
 import SpinnerMini from "../../ui/SpinnerMini";
-import { useQueryClient } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
 
 function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login, isLoading } = useLogin();
-  const queryClient = useQueryClient();
-  const navigate = useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();
-
-    // 🔴 en dev, bypass le login
-    const fakeUser = {
-      id: "dev123",
-      email: "dev@test.com",
-      user_metadata: {
-        fullName: "Dev User",
-      },
-    };
-
-    queryClient.setQueryData(["user"], fakeUser);
-    navigate("/dashboard", { replace: true });
-
-    // reset des champs
-    setEmail("");
-    setPassword("");
+    if (!email || !password) return;
+    login(
+      { email, password },
+      {
+        onSettled: () => {
+          setEmail("");
+          setPassword("");
+        },
+      }
+    );
   }
 
   return (
     <Form onSubmit={handleSubmit}>
-      {/* <FormRowVertical label="Email address">
+      <FormRowVertical label="Email address">
         <Input
           type="email"
           id="email"
@@ -59,7 +49,6 @@ function LoginForm() {
           disabled={isLoading}
         />
       </FormRowVertical>
-       */}
       <FormRowVertical>
         <Button size="large" disabled={isLoading}>
           {!isLoading ? "Log in" : <SpinnerMini />}
