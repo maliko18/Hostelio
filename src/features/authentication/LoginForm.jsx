@@ -13,16 +13,20 @@ function LoginForm() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (!email || !password) return;
-    login(
-      { email, password },
-      {
-        onSettled: () => {
-          setEmail("");
-          setPassword("");
-        },
-      }
-    );
+
+    // 🔴 en dev, bypass le login
+    const fakeUser = {
+      id: "dev123",
+      email: "dev@test.com",
+      name: "Dev User",
+    };
+
+    queryClient.setQueryData(["user"], fakeUser);
+    navigate("/dashboard", { replace: true });
+
+    // reset des champs
+    setEmail("");
+    setPassword("");
   }
 
   return (
