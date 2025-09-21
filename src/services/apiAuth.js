@@ -17,10 +17,10 @@ export async function signup({ fullName, email, password }) {
   return data;
 }
 
-export async function login({ email, password }) {
+export async function login({}) {
   const { data, error } = await supabase.auth.signInWithPassword({
-    email,
-    password,
+    email: "nourinemalek01@gmail.com",
+    password: "password",
   });
 
   if (error) throw new Error(error.message);
