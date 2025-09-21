@@ -12,7 +12,7 @@ function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login, isLoading } = useLogin();
-    const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
 
   function handleSubmit(e) {
@@ -35,8 +35,8 @@ function LoginForm() {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <FormRowVertical label="Email address">
-        {/* <Input
+      {/* <FormRowVertical label="Email address">
+        <Input
           type="email"
           id="email"
           // This makes this form better for password managers
@@ -56,7 +56,8 @@ function LoginForm() {
           onChange={(e) => setPassword(e.target.value)}
           disabled={isLoading}
         />
-      </FormRowVertical> */}
+      </FormRowVertical>
+       */}
       <FormRowVertical>
         <Button size="large" disabled={isLoading}>
           {!isLoading ? "Log in" : <SpinnerMini />}
